@@ -1,0 +1,177 @@
+---
+title: "Práctica 2"
+author: "Marc Gil Arnau"
+date: "2024-11-21"
+output: html_document
+---
+
+# Introducción
+
+Práctica 2 de la asignatura de Inferencia Estadística.
+
+# Pregunta 1:
+
+Demostrar que la log-verosimilitud de p basada en n observaciones es :$$l(p)=r\log\left(\frac{p}{1-p}\right)+n\log(1-p)$$
+
+Donde r = x1+x2+...+xn es la suma de las respuestas en las n observaciones. ¿Qué distribución sigue la suma de n variables aleatorias Bernoulli i.i.d?
+
+$$
+\text{La distribución que sigue la suma de n variables aleatorias Bernoulli i.i.d es una distribución binomial:}
+$$
+
+$$L(p)=\binom{n}{k}p^{x}(1-p)^{n-x}$$ $$l(p)=\log\left(\binom{n}{k}p^{x}(1-p)^{n-x}\right)$$ $$l(p)=\log\binom{n}{k}+\log(p^{x})+\log((1-p)^{n-x})=x\log(p)+(n-x)\log(1-p)$$ $$l(p)=x\log(p)-x\log(1-p)+n\log(1-p)=x\log\left(\frac{p}{1-p}\right)+n\log(1-p)$$ $$\text{Como }x= (x_1+x_2+x_3+...+x_n) = r$$ $$l(p)=r\log\left(\frac{p}{1-p}\right)+n\log(1-p)$$
+
+# Pregunta 2:
+
+Demuestra que en el caso de la variable Bernoulli de parámetro p, la información de Fisher sobre p en una muestra de tamaño n es igual a: $$\frac{n}{p(1-p)}$$
+
+$$I(p)=-E\left[\frac{\partial^{2} l(p)}{\partial p^{2}}\right]$$ $$l(p)=r\log\left(\frac{p}{1-p}\right)+n\log(1-p)=r\log(p)-r\log(1-p)+n\log(1-p)$$ $$\frac{\partial l(p)}{\partial p }=\frac{r}{p}+\frac{r}{1-p}-\frac{n}{1-p}=\frac{r}{p}+\frac{r-n}{1-p}$$ $$\frac{\partial^{2} l(p)}{\partial p^{2}}=-\frac{r}{p^{2}}+\frac{r-n}{(1-p)^{2}}$$ $$\text{Como r sigue una distribución binomial, sabemos que }E(r)=np$$ $$-E\left[\frac{\partial^{2} l(p)}{\partial p^{2}}\right]=\frac{np}{p^{2}}+\frac{n-np}{(1-p)^{2}}=\frac{n}{p}-\frac{n}{(1-p)}=\frac{n(1-p)+np}{p(1-p)}=\frac{n-np+np}{p(1-p)}$$ $$I(p)=\frac{n}{p(1-p)}$$
+
+# Pregunta 3:
+
+Calcular las expresiones de Z y V para las siguientes parametrizaciones de theta:
+
+## a)
+
+$$\theta=\log\left(\frac{p(1-p_0)}{p_0(1-p)}\right) \longrightarrow e^{\theta}=\frac{p(1-p_0)}{p_0(1-p)} \longrightarrow e^{\theta}p_o(1-p)=p(1-p_0) \longrightarrow e^{\theta}p_0=p(1-p_0)+e^{\theta}p_0p$$ $$p=\frac{e^{\theta}p_0}{1-p_0+e^{\theta}p_0}$$
+
+$$Z= \left[\frac{\partial}{\partial \theta} l(\theta) \right]= \left[\frac{\partial}{\partial \theta} p \frac{\partial}{\partial p} l(p) \right]$$
+
+$$l(p) = r \left(\log(p) - \log(1-p)\right) + n \log(1-p)$$ $$Z=\frac{\partial }{\partial \theta}\left(r\log\left(\frac{e^{\theta}p_0}{1-p_0+e^{\theta}p_0}\right)-r\log\left(1-\frac{e^{\theta}p_0}{1-p_0+e^{\theta}p_0}\right)+n\log\left(1-\frac{e^{\theta}p_0}{1-p_0+e^{\theta}p_0}\right)\right)=$$
+
+$$\frac{\partial }{\partial \theta}\left(r\log(e^{\theta}p_o)-r\log(1-p_0+e^{\theta}p_o)-r\log\left(\frac{1-p_0}{1-p_0+e^{\theta}p_o}\right)+n\log\left(\frac{1-p_0}{1-p_0+e^{\theta}p_o}\right)\right)=$$
+
+$$r-\frac{re^{\theta}p_o}{1-p_0+e^{\theta}p_o}+\frac{re^{\theta}p_o}{1-p_0+e^{\theta}p_o}-\frac{ne^{\theta}p_o}{1-p_0+e^{\theta}p_o}=r-\frac{ne^{\theta}p_o}{1-p_0+e^{\theta}p_o}=$$
+
+$$\frac{r(1-p_0+e^{\theta}p_o)-ne^{\theta}p_o}{1-p_0+e^{\theta}p_o} \longrightarrow \theta = 0 \longrightarrow r-np_0$$
+
+$$Z=r-np_0$$
+
+$$V = \left[\left(\frac{\partial}{\partial \theta} p \right)^2 I(p)\right]$$
+
+$$\frac{\partial}{\partial \theta} p = \frac{\partial}{\partial \theta} \left(\frac{e^{\theta}p_0}{1-p_0+e^{\theta}p_0}\right)= \frac{e^{\theta}p_0(1-p_0)}{(1-p_0+e^{\theta}p_0)^2} \implies \left(\frac{\partial}{\partial \theta} p \right)^2 =\left(\frac{e^{\theta}p_0(1-p_0)}{(1-p_0+e^{\theta}p_0)^2}\right)^2 $$
+
+$$I(p)=- E \left[ \frac{\partial^2}{\partial p^2} l(p) \right]=\frac{n}{p(1-p)}=\frac{n}{\left(\frac{e^{\theta} p_0}{1 - p_0 + e^{\theta} p_0}\right) \left(1 - \frac{e^{\theta} p_0}{1 - p_0 + e^{\theta} p_0}\right)}=\frac{n(1-p_0+e^{\theta}p_0)^2}{e^{\theta}p_0(1-p_0)}$$
+
+$$V=\left(\frac{e^{\theta}p_0(1-p_0)}{(1-p_0+e^{\theta}p_0)^2}\right)^2 \frac{n(1-p_0+e^{\theta}p_0)^2}{e^{\theta}p_0(1-p_0)}=\frac{ne^{\theta}p_0(1-p_0)}{(1-p_0+e^{\theta}p_0)^2}\longrightarrow \theta = 0 \longrightarrow np_0(1-p_0)$$
+
+$$V =  np_0(1-p_0)$$
+
+## b)
+
+$$\theta = p - p_0$$
+
+$$p = \theta + p_0$$
+
+$$Z= \left[\frac{\partial}{\partial \theta} l(\theta) \right]= \left[\frac{\partial}{\partial \theta} p \frac{\partial}{\partial p} l(p) \right]$$
+
+$$l(p) = r \left(\log(p) - \log(1-p)\right) + n \log(1-p)$$
+
+$$Z=\frac{\partial }{\partial \theta}\left(r \left(\log(\theta + p_0) - \log(1-(\theta + p_0)\right) + n \log(1-(\theta + p_0))\right)= \frac{r}{\theta + p_0}+\frac{r}{1-\theta -p_0}-\frac{n}{1-\theta - p_0}=\\ = \frac{r}{\theta + p_0}+\frac{r-n}{1-\theta - p_0}\longrightarrow \theta = 0 \longrightarrow\frac{r-np_0}{p_0(1-p_0)}$$
+
+$$Z=\frac{r-np_0}{p_0(1-p_0)}$$
+
+$$V = \left[\left(\frac{\partial}{\partial \theta} p \right)^2 I(p)\right]$$
+
+$$\frac{\partial}{\partial \theta} p = \frac{\partial}{\partial \theta} (\theta+p_0)=1 \implies\left(\frac{\partial}{\partial \theta} p \right)^2 =1^2=1 $$
+
+$$I(p)=- E \left[ \frac{\partial^2}{\partial p^2} l(p) \right]=\frac{n}{p(1-p)}=\frac{n}{(\theta + p_0)(1-\theta-p_0)}=\frac{n}{\theta-\theta^2-p_0\theta+p_0-p_0\theta-p_0^2}\longrightarrow \theta = 0 \longrightarrow\frac{n}{p_0(1-p_0)}$$
+
+$$V = \frac{n}{p_0(1-p_0)}$$
+
+## c)
+
+$$\theta = \arcsin(\sqrt{p}) - \arcsin(\sqrt{p_0})$$
+
+$$p = \sin^2\left(\theta + \arcsin(\sqrt{p_0})\right)$$
+
+$$Z= \left[\frac{\partial}{\partial \theta} l(\theta) \right]= \left[\frac{\partial}{\partial \theta} p \frac{\partial}{\partial p} l(p) \right]$$
+
+$$l(p) = r \left(\log(p) - \log(1-p)\right) + n \log(1-p)$$
+
+$$\frac{d l(p)}{dp} = \frac{r}{p} + \frac{r-n}{1-p} = \frac{(r-n)p}{p(1-p)}$$
+
+$$\frac{dp}{d\theta} = 2 \sin\left(\theta + \arcsin(\sqrt{p_0})\right) \cos\left(\theta + \arcsin(\sqrt{p_0})\right) = \sin\left(2\left(\theta + \arcsin(\sqrt{p_0})\right)\right)$$ $$Z = \sin\left(2\left(\theta + \arcsin(\sqrt{p_0})\right)\right) \frac{(r-n)p}{1-p} = \sin\left(2\left(\theta + \arcsin(\sqrt{p_0})\right)\right) \frac{(r-n) \sin^2\left(\theta + \arcsin(\sqrt{p_0})\right)}{\cos^2\left(\theta + \arcsin(\sqrt{p_0})\right)}=\\ = 2 \sin\left(\theta + \arcsin(\sqrt{p_0})\right) \cos\left(\theta + \arcsin(\sqrt{p_0})\right) \frac{(r-n) \sin^2\left(\theta + \arcsin(\sqrt{p_0})\right)}{\cos^2\left(\theta + \arcsin(\sqrt{p_0})\right)}= \\ = 2(r-n) \frac{\sin^3\left(\theta + \arcsin(\sqrt{p_0})\right)}{\cos\left(\theta + \arcsin(\sqrt{p_0})\right)} \longrightarrow \theta = 0 \longrightarrow 2(r-n) \frac{\left(\sqrt{p_0}\right)^3}{\sqrt{1-p_0}} = \frac{2(r-np_0)}{\sqrt{(1-p_0)p_0}}$$ $$Z = \frac{2(r-np_0)}{\sqrt{(1-p_0)p_0}}$$ $$V = \left[\left(\frac{\partial}{\partial \theta} p \right)^2 I(p)\right]$$ $$\left(\frac{dp}{d\theta}\right)^2 = \sin^2\left(2\left(\theta + \arcsin(\sqrt{p_0})\right)\right)$$ $$I(p_0) = -E\left[\frac{d^2 l(p)}{dp^2}\right] = \frac{n}{p(1-p)} = \frac{n}{\sin^2\left(\theta + \arcsin(\sqrt{p_0})\right) \cos^2\left(\theta + \arcsin(\sqrt{p_0})\right)}$$ $$V = \frac{\sin^2\left(2\left(\theta + \arcsin(\sqrt{p_0})\right)\right) n}{\sin^2\left(\theta + \arcsin(\sqrt{p_0})\right) \cos^2\left(\theta + \arcsin(\sqrt{p_0})\right)} = \frac{\left(2 \sin\left(\theta + \arcsin(\sqrt{p_0})\right) \cos\left(\theta + \arcsin(\sqrt{p_0})\right)\right)^2 n}{\sin^2\left(\theta + \arcsin(\sqrt{p_0})\right) \cos^2\left(\theta + \arcsin(\sqrt{p_0})\right)} \longrightarrow \theta = 0 \longrightarrow 4n$$ $$V = 4n$$
+
+# Pregunta 4:
+
+Presentar un código en R, comentado convenientemente para el cálculo de Z y V en cada una de las parametrizaciones propuestas.
+
+## a)
+
+$$\theta=\log\left(\frac{p(1-p_0)}{p_0(1-p)}\right), \phantom{0} Z=r-np_0, \phantom{0} V =  np_0(1-p_0)$$
+
+```{r}
+p0 <- 0.3  # Valor de hipótesis nula
+n <- 1000  # Tamaño de la muestra
+r <- rbinom(1, n, p0) # Número de éxitos observados
+
+Z1 <- r-n*p0                                                     # Estadístico Z
+V1 <- n*p0*(1-p0)                                                # Estadístico V
+
+cat("Z =", Z1, "\nV =", V1, "\n\n")
+```
+
+## b)
+
+$$\theta = p - p_0, \phantom{0}Z=\frac{r-np_0}{p_0(1-p_0)}, \phantom{0} V = \frac{n}{p_0(1-p_0)}$$
+
+```{r}
+p0 <- 0.3  # Valor de hipótesis nula
+n <- 1000  # Tamaño de la muestra
+r <- rbinom(1, n, p0) # Número de éxitos observados
+
+Z2 <- (r-n*p0)/((1-p0)*p0)                                         # Estadístico Z
+V2 <- n/(p0*(1-p0))                                                # Estadístico V
+
+cat("Z =", Z2, "\nV =", V2, "\n\n")
+```
+
+## c)
+
+$$
+\theta = \arcsin(\sqrt{p}) - \arcsin(\sqrt{p_0}), \phantom{0} Z = \frac{2(r-np_0)}{\sqrt{(1-p_0)p_0}}, \phantom{0} V = 4n
+$$
+
+```{r}
+p0 <- 0.3  # Valor de hipótesis nula
+n <- 1000  # Tamaño de la muestra
+r <- rbinom(1, n, p0) # Número de éxitos observados
+
+Z3 <- 2*(r-n*p0)/sqrt((1-p0)*p0)                                 # Estadístico Z
+V3 <- 4*n                                                        # Estadístico V
+
+cat("Z =", Z3, "\nV =", V3, "\n\n")
+```
+
+# Pregunta 5:
+
+Simular para una muestra de tamaño 1000, el contraste de hipótesis siguiente,
+
+$$
+H_0: p = 0,3
+\\
+H_1: p >  0,3
+$$
+
+```{r}
+set.seed(123) # Semilla para reproducibilidad
+n <- 1000 # Tamaño de muestra
+p0 <- 0.3 # Valor según H0
+alpha <- 0.05 # Nivel de significancia
+
+r <- rbinom(1, n, p0) # Número de éxitos observados
+
+# Calcular estadístico Z
+Z <- (r / n - p0) / sqrt((p0 * (1 - p0)) / n)
+
+# Valor crítico para el contraste unilateral
+k <- qnorm(1 - alpha) 
+
+# Resultado del contraste
+if (Z >= k) {
+  cat("Se rechaza H0: p > 0.3 con un nivel de significancia de", alpha, "\n")
+} else {
+  cat("No se rechaza H0: p <= 0.3 con un nivel de significancia de", alpha, "\n")
+}
+```
