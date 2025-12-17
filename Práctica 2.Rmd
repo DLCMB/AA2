@@ -1,0 +1,449 @@
+---
+title: "Práctica 2"
+author: "Marc Gil y Mónica Silva"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+# Introducción
+
+Práctica 2 de la asignatura de Inferencia Estadística.
+
+## Pregunta 1:
+
+Demostrar que la log-verosimilitud de p basada en n observaciones es :$$l(p)=r\log\left(\frac{p}{1-p}\right)+n\log(1-p)$$
+
+Donde r = x1+x2+...+xn es la suma de las respuestas en las n observaciones. ¿Qué distribución sigue la suma de n variables aleatorias Bernoulli i.i.d?
+
+$$
+\text{La distribución que sigue la suma de n variables aleatorias Bernoulli i.i.d es una distribución binomial:}
+$$
+
+$$L(p)=\binom{n}{k}p^{x}(1-p)^{n-x}$$ $$l(p)=\log\left(\binom{n}{k}p^{x}(1-p)^{n-x}\right)$$ $$l(p)=\log\binom{n}{k}+\log(p^{x})+\log((1-p)^{n-x})=x\log(p)+(n-x)\log(1-p)$$ $$l(p)=x\log(p)-x\log(1-p)+n\log(1-p)=x\log\left(\frac{p}{1-p}\right)+n\log(1-p)$$ $$\text{Como }x= (x_1+x_2+x_3+...+x_n) = r$$ $$l(p)=r\log\left(\frac{p}{1-p}\right)+n\log(1-p)$$
+
+## Pregunta 2:
+
+Demuestra que en el caso de la variable Bernoulli de parámetro p, la información de Fisher sobre p en una muestra de tamaño n es igual a: $$\frac{n}{p(1-p)}$$
+
+$$I(p)=-E\left[\frac{\partial^{2} l(p)}{\partial p^{2}}\right]$$ $$l(p)=r\log\left(\frac{p}{1-p}\right)+n\log(1-p)=r\log(p)-r\log(1-p)+n\log(1-p)$$ $$\frac{\partial l(p)}{\partial p }=\frac{r}{p}+\frac{r}{1-p}-\frac{n}{1-p}=\frac{r}{p}+\frac{r-n}{1-p}$$ $$\frac{\partial^{2} l(p)}{\partial p^{2}}=-\frac{r}{p^{2}}+\frac{r-n}{(1-p)^{2}}$$ $$\text{Como r sigue una distribución binomial, sabemos que }E(r)=np$$ $$-E\left[\frac{\partial^{2} l(p)}{\partial p^{2}}\right]=\frac{np}{p^{2}}+\frac{n-np}{(1-p)^{2}}=\frac{n}{p}-\frac{n}{(1-p)}=\frac{n(1-p)+np}{p(1-p)}=\frac{n-np+np}{p(1-p)}$$ $$I(p)=\frac{n}{p(1-p)}$$
+
+## Pregunta 3:
+
+Calcular las expresiones de Z y V para las siguientes parametrizaciones de theta:
+
+### a)
+
+$$\theta=\log\left(\frac{p(1-p_0)}{p_0(1-p)}\right) \longrightarrow e^{\theta}=\frac{p(1-p_0)}{p_0(1-p)} \longrightarrow e^{\theta}p_o(1-p)=p(1-p_0) \longrightarrow e^{\theta}p_0=p(1-p_0)+e^{\theta}p_0p$$ $$p=\frac{e^{\theta}p_0}{1-p_0+e^{\theta}p_0}$$
+
+$$Z= \left[\frac{\partial}{\partial \theta} l(\theta) \right]= \left[\frac{\partial}{\partial \theta} p \frac{\partial}{\partial p} l(p) \right]$$
+
+$$l(p) = r \left(\log(p) - \log(1-p)\right) + n \log(1-p)$$ $$Z=\frac{\partial }{\partial \theta}\left(r\log\left(\frac{e^{\theta}p_0}{1-p_0+e^{\theta}p_0}\right)-r\log\left(1-\frac{e^{\theta}p_0}{1-p_0+e^{\theta}p_0}\right)+n\log\left(1-\frac{e^{\theta}p_0}{1-p_0+e^{\theta}p_0}\right)\right)=$$
+
+$$\frac{\partial }{\partial \theta}\left(r\log(e^{\theta}p_o)-r\log(1-p_0+e^{\theta}p_o)-r\log\left(\frac{1-p_0}{1-p_0+e^{\theta}p_o}\right)+n\log\left(\frac{1-p_0}{1-p_0+e^{\theta}p_o}\right)\right)=$$
+
+$$r-\frac{re^{\theta}p_o}{1-p_0+e^{\theta}p_o}+\frac{re^{\theta}p_o}{1-p_0+e^{\theta}p_o}-\frac{ne^{\theta}p_o}{1-p_0+e^{\theta}p_o}=r-\frac{ne^{\theta}p_o}{1-p_0+e^{\theta}p_o}=$$
+
+$$\frac{r(1-p_0+e^{\theta}p_o)-ne^{\theta}p_o}{1-p_0+e^{\theta}p_o} \longrightarrow \theta = 0 \longrightarrow r-np_0$$
+
+$$Z=r-np_0$$
+
+$$V = \left[\left(\frac{\partial}{\partial \theta} p \right)^2 I(p)\right]$$
+
+$$\frac{\partial}{\partial \theta} p = \frac{\partial}{\partial \theta} \left(\frac{e^{\theta}p_0}{1-p_0+e^{\theta}p_0}\right)= \frac{e^{\theta}p_0(1-p_0)}{(1-p_0+e^{\theta}p_0)^2} \implies \left(\frac{\partial}{\partial \theta} p \right)^2 =\left(\frac{e^{\theta}p_0(1-p_0)}{(1-p_0+e^{\theta}p_0)^2}\right)^2 $$
+
+$$I(p)=- E \left[ \frac{\partial^2}{\partial p^2} l(p) \right]=\frac{n}{p(1-p)}=\frac{n}{\left(\frac{e^{\theta} p_0}{1 - p_0 + e^{\theta} p_0}\right) \left(1 - \frac{e^{\theta} p_0}{1 - p_0 + e^{\theta} p_0}\right)}=\frac{n(1-p_0+e^{\theta}p_0)^2}{e^{\theta}p_0(1-p_0)}$$
+
+$$V=\left(\frac{e^{\theta}p_0(1-p_0)}{(1-p_0+e^{\theta}p_0)^2}\right)^2 \frac{n(1-p_0+e^{\theta}p_0)^2}{e^{\theta}p_0(1-p_0)}=\frac{ne^{\theta}p_0(1-p_0)}{(1-p_0+e^{\theta}p_0)^2}\longrightarrow \theta = 0 \longrightarrow np_0(1-p_0)$$
+
+$$V =  np_0(1-p_0)$$
+
+### b)
+
+$$\theta = p - p_0$$
+
+$$p = \theta + p_0$$
+
+$$Z= \left[\frac{\partial}{\partial \theta} l(\theta) \right]= \left[\frac{\partial}{\partial \theta} p \frac{\partial}{\partial p} l(p) \right]$$
+
+$$l(p) = r \left(\log(p) - \log(1-p)\right) + n \log(1-p)$$
+
+$$Z=\frac{\partial }{\partial \theta}\left(r \left(\log(\theta + p_0) - \log(1-(\theta + p_0)\right) + n \log(1-(\theta + p_0))\right)= \frac{r}{\theta + p_0}+\frac{r}{1-\theta -p_0}-\frac{n}{1-\theta - p_0}=\\ = \frac{r}{\theta + p_0}+\frac{r-n}{1-\theta - p_0}\longrightarrow \theta = 0 \longrightarrow\frac{r-np_0}{p_0(1-p_0)}$$
+
+$$Z=\frac{r-np_0}{p_0(1-p_0)}$$
+
+$$V = \left[\left(\frac{\partial}{\partial \theta} p \right)^2 I(p)\right]$$
+
+$$\frac{\partial}{\partial \theta} p = \frac{\partial}{\partial \theta} (\theta+p_0)=1 \implies\left(\frac{\partial}{\partial \theta} p \right)^2 =1^2=1 $$
+
+$$I(p)=- E \left[ \frac{\partial^2}{\partial p^2} l(p) \right]=\frac{n}{p(1-p)}=\frac{n}{(\theta + p_0)(1-\theta-p_0)}=\frac{n}{\theta-\theta^2-p_0\theta+p_0-p_0\theta-p_0^2}\longrightarrow \theta = 0 \longrightarrow\frac{n}{p_0(1-p_0)}$$
+
+$$V = \frac{n}{p_0(1-p_0)}$$
+
+### c)
+
+$$\theta = \arcsin(\sqrt{p}) - \arcsin(\sqrt{p_0})$$
+
+$$p = \sin^2\left(\theta + \arcsin(\sqrt{p_0})\right)$$
+
+$$Z= \left[\frac{\partial}{\partial \theta} l(\theta) \right]= \left[\frac{\partial}{\partial \theta} p \frac{\partial}{\partial p} l(p) \right]$$
+
+$$l(p) = r \left(\log(p) - \log(1-p)\right) + n \log(1-p)$$
+
+$$\frac{d l(p)}{dp} = \frac{r}{p} + \frac{r-n}{1-p} = \frac{(r-n)p}{p(1-p)}$$
+
+$$\frac{dp}{d\theta} = 2 \sin\left(\theta + \arcsin(\sqrt{p_0})\right) \cos\left(\theta + \arcsin(\sqrt{p_0})\right) = \sin\left(2\left(\theta + \arcsin(\sqrt{p_0})\right)\right)$$ $$Z = \sin\left(2\left(\theta + \arcsin(\sqrt{p_0})\right)\right) \frac{(r-n)p}{1-p} = \sin\left(2\left(\theta + \arcsin(\sqrt{p_0})\right)\right) \frac{(r-n) \sin^2\left(\theta + \arcsin(\sqrt{p_0})\right)}{\cos^2\left(\theta + \arcsin(\sqrt{p_0})\right)}=\\ = 2 \sin\left(\theta + \arcsin(\sqrt{p_0})\right) \cos\left(\theta + \arcsin(\sqrt{p_0})\right) \frac{(r-n) \sin^2\left(\theta + \arcsin(\sqrt{p_0})\right)}{\cos^2\left(\theta + \arcsin(\sqrt{p_0})\right)}= \\ = 2(r-n) \frac{\sin^3\left(\theta + \arcsin(\sqrt{p_0})\right)}{\cos\left(\theta + \arcsin(\sqrt{p_0})\right)} \longrightarrow \theta = 0 \longrightarrow 2(r-n) \frac{\left(\sqrt{p_0}\right)^3}{\sqrt{1-p_0}} = \frac{2(r-np_0)}{\sqrt{(1-p_0)p_0}}$$ $$Z = \frac{2(r-np_0)}{\sqrt{(1-p_0)p_0}}$$ $$V = \left[\left(\frac{\partial}{\partial \theta} p \right)^2 I(p)\right]$$ $$\left(\frac{dp}{d\theta}\right)^2 = \sin^2\left(2\left(\theta + \arcsin(\sqrt{p_0})\right)\right)$$ $$I(p_0) = -E\left[\frac{d^2 l(p)}{dp^2}\right] = \frac{n}{p(1-p)} = \frac{n}{\sin^2\left(\theta + \arcsin(\sqrt{p_0})\right) \cos^2\left(\theta + \arcsin(\sqrt{p_0})\right)}$$ $$V = \frac{\sin^2\left(2\left(\theta + \arcsin(\sqrt{p_0})\right)\right) n}{\sin^2\left(\theta + \arcsin(\sqrt{p_0})\right) \cos^2\left(\theta + \arcsin(\sqrt{p_0})\right)} = \frac{\left(2 \sin\left(\theta + \arcsin(\sqrt{p_0})\right) \cos\left(\theta + \arcsin(\sqrt{p_0})\right)\right)^2 n}{\sin^2\left(\theta + \arcsin(\sqrt{p_0})\right) \cos^2\left(\theta + \arcsin(\sqrt{p_0})\right)} \longrightarrow \theta = 0 \longrightarrow 4n$$ $$V = 4n$$
+
+## Pregunta 4:
+
+Presentar un código en R, comentado convenientemente para el cálculo de Z y V en cada una de las parametrizaciones propuestas.
+
+### a)
+
+$$\theta=\log\left(\frac{p(1-p_0)}{p_0(1-p)}\right), \phantom{0} Z=r-np_0, \phantom{0} V =  np_0(1-p_0)$$
+
+```{r}
+p0 <- 0.3  # Valor de hipótesis nula
+n <- 1000  # Tamaño de la muestra
+r <- rbinom(1, n, p0) # Número de éxitos observados
+
+Z1 <- r-n*p0                                                     # Estadístico Z
+V1 <- n*p0*(1-p0)                                                # Estadístico V
+
+cat("Z =", Z1, "\nV =", V1, "\n\n")
+```
+
+### b)
+
+$$\theta = p - p_0, \phantom{0}Z=\frac{r-np_0}{p_0(1-p_0)}, \phantom{0} V = \frac{n}{p_0(1-p_0)}$$
+
+```{r}
+p0 <- 0.3  # Valor de hipótesis nula
+n <- 1000  # Tamaño de la muestra
+r <- rbinom(1, n, p0) # Número de éxitos observados
+
+Z2 <- (r-n*p0)/((1-p0)*p0)                                         # Estadístico Z
+V2 <- n/(p0*(1-p0))                                                # Estadístico V
+
+cat("Z =", Z2, "\nV =", V2, "\n\n")
+```
+
+### c)
+
+$$
+\theta = \arcsin(\sqrt{p}) - \arcsin(\sqrt{p_0}), \phantom{0} Z = \frac{2(r-np_0)}{\sqrt{(1-p_0)p_0}}, \phantom{0} V = 4n
+$$
+
+```{r}
+p0 <- 0.3  # Valor de hipótesis nula
+n <- 1000  # Tamaño de la muestra
+r <- rbinom(1, n, p0) # Número de éxitos observados
+
+Z3 <- 2*(r-n*p0)/sqrt((1-p0)*p0)                                 # Estadístico Z
+V3 <- 4*n                                                        # Estadístico V
+
+cat("Z =", Z3, "\nV =", V3, "\n\n")
+```
+
+## Pregunta 5:
+
+Simular para una muestra de tamaño 1000, el contraste de hipótesis siguiente,
+
+$$
+H_0: p = 0,3
+\\
+H_1: p >  0,3
+$$
+
+```{r}
+set.seed(123) # Semilla para reproducibilidad
+n <- 1000 # Tamaño de muestra
+p0 <- 0.3 # Valor según H0
+alpha <- 0.05 # Nivel de significancia
+
+r <- rbinom(1, n, p0) # Número de éxitos observados
+
+# Calcular estadístico Z
+Z <- (r / n - p0) / sqrt((p0 * (1 - p0)) / n)
+
+# Valor crítico para el contraste unilateral
+k <- qnorm(1 - alpha) 
+
+# Resultado del contraste
+if (Z >= k) {
+  cat("Se rechaza H0: p > 0.3 con un nivel de significancia de", alpha, "\n")
+} else {
+  cat("No se rechaza H0: p <= 0.3 con un nivel de significancia de", alpha, "\n")
+}
+```
+
+# Cálculo del tamaño muestral
+
+#### Se pide:
+
+6.  Emplear la fórmula anterior para obtener una fórmula para el tamaño muestral necesario para realizar el contraste con la potencia deseada en cada una de las parametrizaciones de O consideradas anteriormente.
+
+```{r}
+# Definimos las funciones para cada parametrización
+# Inputs: p0 (proporción bajo H0), p (proporción alternativa), alpha, beta
+
+sample_size_log <- function(p0, p, alpha, beta) {
+  z_alpha <- qnorm(1 - alpha / 2)
+  z_beta <- qnorm(1 - beta)
+  theta_R <- log((p * (1 - p0)) / (p0 * (1 - p)))
+  V <- (z_alpha + z_beta)^2 / theta_R^2
+  n <- V / (p0 * (1 - p0))
+  return(ceiling(n))
+}
+
+sample_size_diff <- function(p0, p, alpha, beta) {
+  z_alpha <- qnorm(1 - alpha / 2)
+  z_beta <- qnorm(1 - beta)
+  theta_R <- p - p0
+  V <- (z_alpha + z_beta)^2 / theta_R^2
+  n <- V / (p0 * (1 - p0))
+  return(ceiling(n))
+}
+
+sample_size_arcsin <- function(p0, p, alpha, beta) {
+  z_alpha <- qnorm(1 - alpha / 2)
+  z_beta <- qnorm(1 - beta)
+  theta_R <- asin(sqrt(p)) - asin(sqrt(p0))
+  V <- (z_alpha + z_beta)^2 / theta_R^2
+  n <- V / (p0 * (1 - p0))
+  return(ceiling(n))
+}
+```
+
+# Potencia y error de tipo I
+
+#### En nuestro estudio, p0 es 0.003 y el valor de p que deseamos detectar es 0.006.
+
+#### Se pide:
+
+7.  Emplear los resultados del último ejercicio con nivel $/alfa$ = 0.025 y potencia 0.80 para estimar el tamaño de muestra necesario en este caso particular, para cada una de las parametrizaciones del estadístico.
+
+```{r}
+# Funciones para calcular el tamaño muestral para cada parametrización
+sample_size_log <- function(p0, p, alpha, beta) {
+  z_alpha <- qnorm(1 - alpha / 2)  
+  z_beta <- qnorm(1 - beta)       
+  theta_R <- log((p * (1 - p0)) / (p0 * (1 - p)))  
+  V <- (z_alpha + z_beta)^2 / theta_R^2
+  n <- V / (p0 * (1 - p0))  
+  return(ceiling(n))
+}
+
+sample_size_diff <- function(p0, p, alpha, beta) {
+  z_alpha <- qnorm(1 - alpha / 2)
+  z_beta <- qnorm(1 - beta)
+  theta_R <- p - p0  # Parametrización diferencia
+  V <- (z_alpha + z_beta)^2 / theta_R^2
+  n <- V / (p0 * (1 - p0))
+  return(ceiling(n))
+}
+
+sample_size_arcsin <- function(p0, p, alpha, beta) {
+  z_alpha <- qnorm(1 - alpha / 2)
+  z_beta <- qnorm(1 - beta)
+  theta_R <- asin(sqrt(p)) - asin(sqrt(p0))  # Parametrización arcsin
+  V <- (z_alpha + z_beta)^2 / theta_R^2
+  n <- V / (p0 * (1 - p0))
+  return(ceiling(n))
+}
+
+# Parámetros
+alpha <- 0.025
+beta <- 0.20  # Potencia deseada = 1 - beta = 0.80
+p0 <- 0.003
+p <- 0.006
+
+# Tamaños muestrales
+n_log <- sample_size_log(p0, p, alpha, beta)
+n_diff <- sample_size_diff(p0, p, alpha, beta)
+n_arcsin <- sample_size_arcsin(p0, p, alpha, beta)
+
+# Mostrar resultados
+cat("Tamaño muestral requerido (log):", n_log, "\n")
+cat("Tamaño muestral requerido (diferencia):", n_diff, "\n")
+cat("Tamaño muestral requerido (arcsin):", n_arcsin, "\n")
+```
+
+8.  Estimar los errores tipo I y la potencia del contraste basado en Z y V para cada una de los tamaños de muestra y parametrizaciones anteriores.
+
+```{r}
+# Función para calcular V en base a las parametrizaciones
+calculate_V <- function(p0, n) {
+  V <- n * p0 * (1 - p0)  
+  return(V)
+}
+
+# Simulación para Z y V
+simulate_ZV <- function(n, p0, p1, alpha, reps = 10000) {
+  # Cálculo de V
+  V <- calculate_V(p0, n)
+  
+  # Simulación bajo H0
+  successes_null <- rbinom(reps, n, p0)
+  Z_null <- (successes_null / n - p0) / sqrt(p0 * (1 - p0) / n)
+  error_type_I <- mean(Z_null >= qnorm(1 - alpha / 2))
+  
+  # Simulación bajo H1
+  successes_alt <- rbinom(reps, n, p1)
+  Z_alt <- (successes_alt / n - p0) / sqrt(p0 * (1 - p0) / n)
+  power <- mean(Z_alt >= qnorm(1 - alpha / 2))
+  
+  return(list(V = V, error_type_I = error_type_I, power = power))
+}
+
+# Parámetros del problema
+alpha <- 0.025
+beta <- 0.20  # Potencia deseada = 1 - beta = 0.80
+p0 <- 0.003
+p1 <- 0.006
+
+# Tamaños muestrales calculados previamente
+n_log <- sample_size_log(p0, p1, alpha, beta)
+n_diff <- sample_size_diff(p0, p1, alpha, beta)
+n_arcsin <- sample_size_arcsin(p0, p1, alpha, beta)
+
+# Simulaciones para cada parametrización
+set.seed(123)
+results_log <- simulate_ZV(n_log, p0, p1, alpha)
+results_diff <- simulate_ZV(n_diff, p0, p1, alpha)
+results_arcsin <- simulate_ZV(n_arcsin, p0, p1, alpha)
+
+# Mostrar resultados
+cat("Resultados para parametrización log:\n")
+cat("V:", results_log$V, "\n")
+cat("Error tipo I:", results_log$error_type_I, "\n")
+cat("Potencia:", results_log$power, "\n\n")
+
+cat("Resultados para parametrización diferencia:\n")
+cat("V:", results_diff$V, "\n")
+cat("Error tipo I:", results_diff$error_type_I, "\n")
+cat("Potencia:", results_diff$power, "\n\n")
+
+cat("Resultados para parametrización arcsin:\n")
+cat("V:", results_arcsin$V, "\n")
+cat("Error tipo I:", results_arcsin$error_type_I, "\n")
+cat("Potencia:", results_arcsin$power, "\n")
+```
+
+9.  Emplear además los contrastes siguientes:
+
+    • Test de chi-cuadrado sin corrección de continuidad. ‘chisq.test(x = c(r, n - r), p = c(p0, 1 - p0), correct = FALSE)’
+
+    • Prueba exacta. Función ‘binom.test(r, n, p0, alternative = “greater”)’ .
+
+    ```{r}
+    # Simulaciones para el test de chi-cuadrado y la prueba exacta
+    simulate_tests <- function(n, p0, p1, alpha, reps = 10000) {
+      # Resultados para almacenar
+      errors_chi <- numeric(reps)  
+      power_chi <- numeric(reps)   
+      errors_binom <- numeric(reps)  
+      power_binom <- numeric(reps)   
+      
+      # Simulación bajo H0
+      for (i in 1:reps) {
+        successes_null <- rbinom(1, n, p0)
+        # Chi-cuadrado
+        chi_test <- chisq.test(x = c(successes_null, n - successes_null), 
+                               p = c(p0, 1 - p0), correct = FALSE)
+        errors_chi[i] <- chi_test$p.value < alpha
+        # Binomial exacto
+        binom_test <- binom.test(successes_null, n, p0, alternative = "greater")
+        errors_binom[i] <- binom_test$p.value < alpha
+      }
+      
+      # Simulación bajo H1
+      for (i in 1:reps) {
+        successes_alt <- rbinom(1, n, p1)
+        # Chi-cuadrado
+        chi_test <- chisq.test(x = c(successes_alt, n - successes_alt), 
+                               p = c(p0, 1 - p0), correct = FALSE)
+        power_chi[i] <- chi_test$p.value < alpha
+        # Binomial exacto
+        binom_test <- binom.test(successes_alt, n, p0, alternative = "greater")
+        power_binom[i] <- binom_test$p.value < alpha
+      }
+      
+      # Promediar los resultados
+      list(
+        error_type_I_chi = mean(errors_chi),
+        power_chi = mean(power_chi),
+        error_type_I_binom = mean(errors_binom),
+        power_binom = mean(power_binom)
+      )
+    }
+
+    # Parámetros
+    alpha <- 0.025
+    p0 <- 0.003
+    p1 <- 0.006
+    reps <- 10000
+
+    # Tamaños muestrales del ejercicio 7
+    n_log <- sample_size_log(p0, p1, alpha, 0.20)
+    n_diff <- sample_size_diff(p0, p1, alpha, 0.20)
+    n_arcsin <- sample_size_arcsin(p0, p1, alpha, 0.20)
+
+    # Simulación para cada parametrización
+    set.seed(123)
+    results_log <- simulate_tests(n_log, p0, p1, alpha, reps)
+    results_diff <- simulate_tests(n_diff, p0, p1, alpha, reps)
+    results_arcsin <- simulate_tests(n_arcsin, p0, p1, alpha, reps)
+
+    # Mostrar resultados
+    cat("Resultados para parametrización log:\n")
+    cat("Error tipo I (Chi-cuadrado):", results_log$error_type_I_chi, "\n")
+    cat("Potencia (Chi-cuadrado):", results_log$power_chi, "\n")
+    cat("Error tipo I (Binomial exacto):", results_log$error_type_I_binom, "\n")
+    cat("Potencia (Binomial exacto):", results_log$power_binom, "\n\n")
+
+    cat("Resultados para parametrización diferencia:\n")
+    cat("Error tipo I (Chi-cuadrado):", results_diff$error_type_I_chi, "\n")
+    cat("Potencia (Chi-cuadrado):", results_diff$power_chi, "\n")
+    cat("Error tipo I (Binomial exacto):", results_diff$error_type_I_binom, "\n")
+    cat("Potencia (Binomial exacto):", results_diff$power_binom, "\n\n")
+
+    cat("Resultados para parametrización arcsin:\n")
+    cat("Error tipo I (Chi-cuadrado):", results_arcsin$error_type_I_chi, "\n")
+    cat("Potencia (Chi-cuadrado):", results_arcsin$power_chi, "\n")
+    cat("Error tipo I (Binomial exacto):", results_arcsin$error_type_I_binom, "\n")
+    cat("Potencia (Binomial exacto):", results_arcsin$power_binom, "\n")
+
+    ```
+
+10. Como se ha explicado en clase, an algunas situaciones, las suposiciones necesarias para aplicar pruebas paramétricas no se cumplen, por lo que es necesario utilizar pruebas no paramétricas. Sugiere qué prueba no parámtrica podría emplearse para comparar una proporción con un valor de referencia. Escribe el código en R para realizar dicha prueba.
+
+```{r}
+# Prueba binomial exacta para comparar una proporción con un valor de referencia
+binomial_exact_test <- function(n, p0, successes, alpha = 0.025) {
+  # Realiza la prueba binomial exacta
+  result <- binom.test(successes, n, p0, alternative = "greater")
+  
+  # Mostrar resultados
+  cat("Prueba binomial exacta:\n")
+  cat("Éxitos observados:", successes, "\n")
+  cat("Tamaño muestral:", n, "\n")
+  cat("Proporción esperada bajo H0:", p0, "\n")
+  cat("P-valor:", result$p.value, "\n")
+  if (result$p.value < alpha) {
+    cat("Resultado: Rechazar H0 (proporción significativamente mayor que", p0, ")\n")
+  } else {
+    cat("Resultado: No rechazar H0\n")
+  }
+}
+
+# Ejemplo de uso
+n <- 100  # Tamaño de la muestra
+p0 <- 0.3  # Proporción bajo H0
+successes <- 40  # Éxitos observados en la muestra
+alpha <- 0.025  # Nivel de significancia
+
+binomial_exact_test(n, p0, successes, alpha)
+
+```
